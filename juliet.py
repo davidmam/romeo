@@ -142,16 +142,20 @@ if __name__ == "__main__":
     while not mqtt_client.remote_ip:
         time.sleep(1)
         print(mqtt_client.remote_ip)
-
-    try:
-        # Create controller
-        controller = ChromiumController(host="localhost", port=9222)
-        controller.connect()
-        
-        # Navigate to a page
-        print("Navigating to remote birdnet pi...")
-        controller.navigate(f"http://{mqtt_client.remote_ip}")
-        time.sleep(2)
-        controller.close()
-    except Exception as e:
-        print(f"Error: {e}")
+    controller = None
+    attempts = 0
+    while attempts < 10 and not controller:
+        try:
+            # Create controller
+            controller = ChromiumController(host="localhost", port=9222)
+            controller.connect()
+            
+            # Navigate to a page
+            print("Navigating to remote birdnet pi...")
+            controller.navigate(f"http://{mqtt_client.remote_ip}")
+            time.sleep(2)
+            controller.close()
+        except Exception as e:
+            attempts +=1
+            print(f"Attempt {attempts} Error: {e}")
+            time.sleep(5)
