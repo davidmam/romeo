@@ -1,0 +1,6 @@
+mqtt_url: djcadmqtt.dundee.ac.uk
+topic: dundeebionet/juliet
+birdnetpi: LogieStreet
+mqtt_port: 8883
+mqtt_user: birdnet
+mqtt_password: Tweet123!

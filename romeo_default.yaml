@@ -1,0 +1,7 @@
+mqtt_url: test.mosquitto.org
+topic: dundeebionet/juliet
+birdnetpi: LogieStreet
+mqtt_port: 1883
+mqtt_user: 
+mqtt_password: 
+

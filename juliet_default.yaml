@@ -1,0 +1,8 @@
+mqtt_url: test.mosquitto.org
+topic: dundeebionet/romeo
+juliettopic: dundeebionet/juliet
+birdnetpi: LogieStreet
+mqtt_port: 1883
+mqtt_user: 
+mqtt_password: 
+chromium_port: 9222
