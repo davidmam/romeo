@@ -1,0 +1,3 @@
+websocket-client
+paho-mqtt
+PyYAML

@@ -7,7 +7,9 @@ Clone the repository to the birdnet user home directory.
 Romeo is the BirdNET-Pi end. It responds to a plea (via MQTT) from Juliet.
 
 romeo.py is installed on the BirdNET-Pi as a service. 
-Create a Venv from the requirements.txt.
+Install to .venv from the requirements.txt.
+pip install -r requirements.txt
+
 Copy romeo_default.yaml to romeo.yaml, edit the settings.
 Install the service by copying romeo.service to /lib/systemd/system.
 Start the service with
