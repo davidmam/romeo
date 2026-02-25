@@ -1,0 +1,14 @@
+[Unit]
+Description=Romeo server for locating BirdNET-Pi
+After=network-online.target
+
+[Service]
+ExecStart=/home/birdnet/romeo/.venv/bin/python /home/birdnet/romeo/romeo.py
+WorkingDirectory=/home/birdnet/romeo
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=birdnet
+
+[Install]
+WantedBy=multi-user.target
