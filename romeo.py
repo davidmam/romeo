@@ -98,6 +98,9 @@ class MQTTClient:
 
     def stop(self):
         self.client.loop_stop()
+    def run_forever(self):
+        self.client.loop_forever()
+
 def message_callback(client, msg):
     txt=msg.payload.decode().split('=')
     if txt[0] == 'romeo' and len(txt)==2 and txt[1]==client.birdnetpi:
@@ -108,6 +111,6 @@ if __name__=='__main__':
     mqtt_client = MQTTClient(broker=config['mqtt_url'], topic=config['topic'], port=config['mqtt_port'], 
                              user=config.get('mqtt_user'), password=config.get('mqtt_password'), birdnetpi=config['birdnetpi'], onmsg=message_callback)
     mqtt_client.connect()
-    mqtt_client.start()
+    mqtt_client.run_forever()
 
 
