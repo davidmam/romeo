@@ -17,11 +17,8 @@ sudo systemctl start romeo.service
 enable with
 sudo systemctl enable romeo.service
 
-Juliet is a script run on the client. It seeks romeo and then points a chromium browser (via the rremote debug port on 9222) to the romeo IP.
+Juliet is a web page that is opened up when the browser launches. It contains an mqtt client that publishes a request for the server and listens for the server response. It then navigates to the server IP.
 
-Juliet is called on startup by the client as part of the LXDEsession initialisation. First Chromium is launched with teh remote debug port enabled. 
-Juliet will then attempt to call romeo and identify the ip address for romeo. It will then call the controller to navigate to the correct IP.
+This is currently pointed at test.mosquitto.org until wss/: is established at djcad
 
-#TODO
-Example service scripts.
-Example LXDE session startup script.
+
