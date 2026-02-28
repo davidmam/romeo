@@ -41,7 +41,7 @@ def get_ip_address():
         return "127.0.0.1"
 
 class MQTTClient:
-    def __init__(self, broker="localhost", port=1883, topic="topic/#", user=None, password=None, birdnetpi='LogieStreet', onmsg=None):
+    def __init__(self, broker="localhost", port=1883, topic="topic/#", user=None, password=None, birdnetpi='LogieStreet', onmsg=None,use_ssl=False):
         self.broker = broker
         self.port = port
         self.topic = topic
@@ -51,6 +51,7 @@ class MQTTClient:
         self.msg_method=onmsg
         self.subscribed=False
         self.remote_ip=None
+        self.usessl=use_ssl
         self.client = mqtt.Client()
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
@@ -87,7 +88,8 @@ class MQTTClient:
     
     def connect(self):
         """Connect to the MQTT broker."""
-        self.client.tls_set()
+        if self.usessl:
+            self.client.tls_set()
         if self.user:
             self.client.username_pw_set(self.user, self.password)
         self.client.connect(self.broker, self.port, 60)
@@ -109,7 +111,7 @@ if __name__=='__main__':
     config=load_config()
     print(config)
     mqtt_client = MQTTClient(broker=config['mqtt_url'], topic=config['topic'], port=config['mqtt_port'], 
-                             user=config.get('mqtt_user'), password=config.get('mqtt_password'), birdnetpi=config['birdnetpi'], onmsg=message_callback)
+                             user=config.get('mqtt_user'), password=config.get('mqtt_password'), birdnetpi=config['birdnetpi'], onmsg=message_callback, use_ssl=config.get('use_ssl', False))
     mqtt_client.connect()
     mqtt_client.run_forever()
 
