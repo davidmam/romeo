@@ -4,3 +4,4 @@ birdnetpi: LogieStreet
 mqtt_port: 8883
 mqtt_user: birdnet
 mqtt_password: Tweet123!
+use_ssl: True

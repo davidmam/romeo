@@ -4,4 +4,5 @@ birdnetpi: LogieStreet
 mqtt_port: 1883
 mqtt_user: 
 mqtt_password: 
+use_ssl:
 
