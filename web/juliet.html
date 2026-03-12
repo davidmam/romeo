@@ -26,15 +26,21 @@
 <script>
     const birdnetpi = 'LogieStreet' // SET BIRDNETPI NAME HERE
     const clientId = 'mqttjs_' + Math.random().toString(16).substring(2, 10)
-    const host = 'ws://test.mosquitto.org:8081/mqtt'
+    const hostURL = 'wss://djcadmqtt.dundee.ac.uk:8081'
+    const username = 'birdnet';
+    const password = 'Tweet123!'; 
     const options = {
+      wsOptions:{port: 8081},
       keepalive: 60,
       clientId: clientId,
-      protocolId: 'MQTT',
+      protocolId: 'wss',
       protocolVersion: 5,
       clean: true,
       reconnectPeriod: 1000,
       connectTimeout: 30 * 1000,
+      useSSL: true,
+      username: 'birdnet',
+      password: 'Tweet123!',
       will: {
         topic: 'WillMsg',
         payload: 'Connection Closed abnormally..!',
@@ -43,7 +49,13 @@
       },
     }
     console.log('Connecting mqtt client')
-    const client = mqtt.connect(host, options)
+    const client = mqtt.connect(hostURL, {
+                username: username,
+                password: password,
+                clean: true,
+                connectTimeout: 4000,
+                reconnectPeriod: 1000,
+            });
     client.on('error', (err) => {
       console.log('Connection error: ', err)
       client.end()
@@ -52,9 +64,9 @@
       console.log('Reconnecting...')
     })
     client.on('connect', () => {
-  console.log(`Client connected: ${clientId}`)
+  console.log(`Client connected: ${clientId}`);
   // Subscribe
-  client.subscribe('dundeebionet/romeo', { qos: 0 })
+  client.subscribe('dundeebionet/#', { qos: 0 })
   console.log('subscribed');  
   })
 // Receive
@@ -67,6 +79,6 @@
     window.location.href = "http://"+data['ip'];
   }
   });
-  client.publish('dundeebionet/juliet', 'romeo='+birdnetpi, { qos: 0, retain: false, contentType: 'text/plain' })
+  client.publish('dundeebionet/juliet', 'romeo='+birdnetpi, { qos: 0, retain: false, contentType: 'text/plain' });
 </script>
 </html>
